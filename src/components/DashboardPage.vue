@@ -2,7 +2,7 @@
   <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="w-full max-w-md bg-white shadow-md rounded p-6">
       <h2 class="text-2xl font-bold mb-4 text-center">Dashboard</h2>
-      <p class="text-gray-700 mb-4">Welcome, {{ user.email }}!</p>
+      <p class="text-gray-700 mb-4">Welcome, {{ userStore.email }}!</p>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
           Update Status
@@ -18,7 +18,7 @@
           Update
         </button>
       </div>
-      <p v-if="status" class="text-gray-700 mb-4">Current Status: {{ status }}</p>
+      <p v-if="userStore.status" class="text-gray-700 mb-4">Current Status: {{ userStore.status }}</p>
       <button @click="logout" class="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
         Logout
       </button>
@@ -28,7 +28,7 @@
 
 <script>
 import { useUserStore } from '../stores/user.js';
-import { updateStatusApi } from '../api.js';
+import {updateUserStatus} from "@/api.js";
 
 export default {
   name: 'DashboardPage',
@@ -37,15 +37,9 @@ export default {
       statusInput: ''
     };
   },
-  computed: {
-    user() {
-      const userStore = useUserStore();
-      return userStore.user || {};
-    },
-    status() {
-      const userStore = useUserStore();
-      return userStore.status;
-    }
+  setup() {
+    const userStore = useUserStore();
+    return {userStore}
   },
   methods: {
     async updateStatus() {
@@ -54,9 +48,8 @@ export default {
         return;
       }
       try {
-        const response = await updateStatusApi(this.statusInput);
-        const userStore = useUserStore();
-        userStore.setStatus(response.status);
+        const response = await updateUserStatus(this.userStore.userId, this.statusInput);
+        this.userStore.setStatus(response.status);
         this.statusInput = '';
       } catch (error) {
         alert(error.message);

@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="w-full max-w-md bg-white shadow-md rounded p-6">
-      <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
-      <form @submit.prevent="login">
+      <h2 class="text-2xl font-bold mb-4 text-center">Signup</h2>
+      <form @submit.prevent="signup">
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
             Email
@@ -28,9 +28,9 @@
           />
         </div>
         <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-          Login
+          Signup
         </button>
-        <a class="cursor-pointer" @click="$emit('signup')">signup instead</a>
+        <a class="cursor-pointer" @click="$emit('login')">login instead</a>
       </form>
     </div>
   </div>
@@ -38,10 +38,10 @@
 
 <script>
 import { useUserStore } from '../stores/user.js';
-import { login } from '../api.js';
+import { signup } from '../api.js';
 
 export default {
-  name: 'LoginPage',
+  name: 'SignupPage',
   data() {
     return {
       email: '',
@@ -50,12 +50,13 @@ export default {
   },
   setup() {
     const userStore = useUserStore();
+
     return {userStore}
   },
   methods: {
-    async login() {
+    async signup() {
       try {
-        const response = await login(this.email, this.password);
+        const response = await signup(this.email, this.password);
         this.userStore.setUser(response);
       } catch (error) {
         alert(error.message);

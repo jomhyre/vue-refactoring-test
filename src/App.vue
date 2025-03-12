@@ -1,7 +1,8 @@
 <template>
   <div>
-    <LoginPage v-if="!loggedIn" />
-    <DashboardPage v-else />
+    <DashboardPage v-if="loggedIn" />
+    <LoginPage v-else-if="loggingIn" @signup="loggingIn = false"  />
+    <SignupPage v-else @login="loggingIn = true" />
   </div>
 </template>
 
@@ -9,19 +10,27 @@
 import LoginPage from './components/LoginPage.vue';
 import DashboardPage from './components/DashboardPage.vue';
 import { useUserStore } from './stores/user.js';
+import SignupPage from "@/components/SignupPage.vue";
 
 export default {
   name: 'App',
   components: {
+    SignupPage,
     LoginPage,
     DashboardPage
   },
+  data() {
+    return {
+      loggingIn: true
+    }
+  },
+  setup() {
+    const userStore = useUserStore();
+    return {userStore}
+  },
   computed: {
-    userStore() {
-      return useUserStore();
-    },
     loggedIn() {
-      return !!this.userStore.user;
+      return !!this.userStore.userId;
     }
   }
 };

@@ -1,29 +1,35 @@
-# vue-test
+# Vue SPA Migration & Enhancement
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is a Single Page Application (SPA) built with Vue that currently uses the Options API, Tailwind CSS, and Pinia for state management. The goal of this task is to modernize and expand the application by achieving the following:
 
-## Recommended IDE Setup
+- **Migrate to the Composition API:**  
+  Refactor the existing components to use Vue's Composition API, enhancing code reusability and organization.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Use TypeScript:**  
+  Convert the codebase from JavaScript to TypeScript to leverage type safety and improve the developer experience.
 
-## Customize configuration
+- **Add vue-router:**  
+  Integrate vue-router to manage application routes, allowing for a more structured multi-page SPA.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- **Implement a User Status Page:**  
+  Develop a new page where users can view the status updates of other users.
 
-## Project Setup
+---
 
-```sh
+
+## Getting started
+
+Setup the project
+
+```bash
 npm install
+# or
+yarn install
 ```
+Run dev mode
 
-### Compile and Hot-Reload for Development
-
-```sh
+```bash
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
+# or
+yarn run dev
 ```

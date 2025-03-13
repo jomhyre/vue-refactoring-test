@@ -3,6 +3,8 @@
     <div class="w-full max-w-md bg-white shadow-md rounded p-6">
       <h2 class="text-2xl font-bold mb-4 text-center">Dashboard</h2>
       <p class="text-gray-700 mb-4">Welcome, {{ userStore.email }}!</p>
+      <p v-if="userStore.status" class="text-gray-700 mb-4">Current Status: {{ userStore.status }}</p>
+
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
           Update Status
@@ -18,7 +20,6 @@
           Update
         </button>
       </div>
-      <p v-if="userStore.status" class="text-gray-700 mb-4">Current Status: {{ userStore.status }}</p>
       <button @click="logout" class="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
         Logout
       </button>
